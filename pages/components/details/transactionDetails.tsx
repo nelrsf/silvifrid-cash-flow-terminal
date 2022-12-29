@@ -11,7 +11,7 @@ import { useRef } from "react";
 import transacrionData from "../../../transactionsData";
 
 function TransactionDetails() {
-  console.log("version 1")
+  console.log("version 2")
   const [isCameraOpen, setIsCameraOpen] = useState(false);
   const router = useRouter();
   const { id, mode } = router.query;
@@ -22,25 +22,26 @@ function TransactionDetails() {
     setIsCameraOpen(!isCameraOpen);
   }
 
-  // const setCameraFacingMode = async (video: any) => {
-  //   const stream = await navigator.mediaDevices.getUserMedia({
-  //     video: {
-  //       facingMode: { exact: 'environment' },
-  //     },
-  //   });
-  //   video.srcObject = stream;
-  // };
+  const setCameraFacingMode = async (video: any) => {
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: {
+        facingMode: { exact: 'environment' },
+      },
+    });
+    console.log("stream", stream)
+    video.srcObject = stream;
+  };
 
   useEffect(() => {
     let video = document.querySelector("video");
     if (!video) {
       return;
     }
-    console.log(navigator)
+
     video.style.width = "100%";
 
 
-    // setCameraFacingMode(video);
+    setCameraFacingMode(video);
   });
   function takePhoto(uri: any) {
     if (!transaction) {
