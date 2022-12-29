@@ -21,13 +21,14 @@ function TransactionDetails() {
     setIsCameraOpen(!isCameraOpen);
   }
 
-  const setCameraFacingMode = async (video: any)=>{
+  const setCameraFacingMode = async (video: any) => {
     const stream = await navigator.mediaDevices.getUserMedia({
-      video: true,
-      audio: false,
+      video: {
+        facingMode: { exact: 'environment' },
+      },
     });
     video.srcObject = stream;
-  }
+  };
 
   useEffect(() => {
     let video = document.querySelector("video");
@@ -36,7 +37,6 @@ function TransactionDetails() {
     }
     video.style.width = "100%";
     setCameraFacingMode(video);
-
   });
   function takePhoto(uri: any) {
     if (!transaction) {
