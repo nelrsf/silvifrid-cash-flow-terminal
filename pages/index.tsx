@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react';
-import { Home }  from "./Home";
+import Home  from "./Home";
 
 function App() {
   return <Home></Home>

@@ -5,7 +5,7 @@ import React from "react";
 import Link from "next/link";
 
 
-export function Home() {
+export default function Home() {
   return (
     <div className={styles.mainContainer}>
       <div className={`${styles.title} mt-5 mb-3`}>

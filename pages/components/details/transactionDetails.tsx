@@ -3,12 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import { Card, Form, Button } from "react-bootstrap";
 import { useRouter } from "next/router";
-import { transacrionData } from "../../cash-flow/transactionsData";
 import BackButton from "../buttons/back";
 import { useEffect, useState } from "react";
 import Camera from "react-html5-camera-photo";
 import 'react-html5-camera-photo/build/css/index.css';
 import { useRef } from 'react'
+import transacrionData from "../../../transactionsData";
 
 function TransactionDetails() {
   const [isCameraOpen, setIsCameraOpen] = useState(false);

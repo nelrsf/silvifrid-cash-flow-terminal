@@ -1,4 +1,4 @@
-export const transacrionData = [
+const transacrionData = [
     {
         id: 1,
         productName: "Jabon Artesanal de café",
@@ -21,3 +21,5 @@ export const transacrionData = [
         price: "18.000"
     }
 ]
+
+export default transacrionData;

@@ -11,27 +11,27 @@ function Transaction(props: any) {
     <Card>
       <div className={`${styles.cardItem} row`}>
         <div className={`${styles.imgViewport} col-sm-2`}>
-          <img src={props.transactionData.image} alt="transacción" />
+          <img src={props.transactionData?.image} alt="transacción" />
         </div>
         <div className={`${styles.cardInfo}  col-sm-4`}>
           <Card.Body>
             <Card.Title className={styles.productName}>
-              {props.transactionData.productName}
+              {props.transactionData?.productName}
             </Card.Title>
             <Card.Text className={styles.transactionDate}>
-              {props.transactionData.date}
+              {props.transactionData?.date}
             </Card.Text>
           </Card.Body>
         </div>
         <div className={`${styles.value}  col-sm-3`}>
-          <strong>{props.transactionData.price} $</strong>
+          <strong>{props.transactionData?.price} $</strong>
         </div>
         <div className={`${styles.actions}  col-sm-3`}>
           <Link
             href={{
               pathname: "/components/details/transactionDetails",
               query: {
-                id: props.transactionData.id,
+                id: props.transactionData?.id,
                 mode: "edit",
               }
             }}

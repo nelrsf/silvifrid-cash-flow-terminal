@@ -1,5 +1,5 @@
 import styles from "../../../styles/Transactions.module.css";
-import { transacrionData } from "../../cash-flow/transactionsData";
+import transacrionData from "../../../transactionsData";
 import Transaction from "./transaction";
 
 function TransactionsList() {
