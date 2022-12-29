@@ -11,6 +11,7 @@ import { useRef } from "react";
 import transacrionData from "../../../transactionsData";
 
 function TransactionDetails() {
+  console.log("version 1")
   const [isCameraOpen, setIsCameraOpen] = useState(false);
   const router = useRouter();
   const { id, mode } = router.query;
@@ -37,7 +38,7 @@ function TransactionDetails() {
     }
     console.log(navigator)
     video.style.width = "100%";
-    console.log(video)
+
 
     // setCameraFacingMode(video);
   });
