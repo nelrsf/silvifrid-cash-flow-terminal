@@ -6,8 +6,8 @@ import { useRouter } from "next/router";
 import BackButton from "../buttons/back";
 import { useEffect, useState } from "react";
 import Camera, { FACING_MODES } from "react-html5-camera-photo";
-import 'react-html5-camera-photo/build/css/index.css';
-import { useRef } from 'react'
+import "react-html5-camera-photo/build/css/index.css";
+import { useRef } from "react";
 import transacrionData from "../../../transactionsData";
 
 function TransactionDetails() {
@@ -17,30 +17,38 @@ function TransactionDetails() {
   let transaction = getTransactionById(parseInt(id as string));
   const miDiv = useRef(null);
 
-  function toggleCamera() 
-  {
+  function toggleCamera() {
     setIsCameraOpen(!isCameraOpen);
   }
 
-  useEffect(()=>{
-    let video = document.querySelector('video');
-    if(!video){
-      return
+  const setCameraFacingMode = async (video: any)=>{
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: true,
+      audio: false,
+    });
+    video.srcObject = stream;
+  }
+
+  useEffect(() => {
+    let video = document.querySelector("video");
+    if (!video) {
+      return;
     }
-    video.style.width = '100%';
-  })
+    video.style.width = "100%";
+    setCameraFacingMode(video);
+
+  });
   function takePhoto(uri: any) {
-    if(!transaction){
-      return
+    if (!transaction) {
+      return;
     }
     transaction.image = uri as string;
     setIsCameraOpen(false);
-    console.log(uri)
+    console.log(uri);
   }
 
-
   useEffect(() => {
-    console.log(document.querySelector("Camera"))
+    console.log(document.querySelector("Camera"));
     // Código para utilizar el ancho del div aquí
   }, [miDiv]);
 
@@ -55,9 +63,8 @@ function TransactionDetails() {
           {isCameraOpen ? (
             <Camera
               onTakePhoto={takePhoto}
-              idealFacingMode = {FACING_MODES.ENVIRONMENT}
+              idealFacingMode={FACING_MODES.ENVIRONMENT}
               // idealResolution={{width:miDiv.current.offsetWidth}}
-              
             ></Camera>
           ) : (
             <Card.Img src={transaction?.image} width="60rem"></Card.Img>
@@ -101,8 +108,6 @@ function TransactionDetails() {
     </div>
   );
 }
-
-
 
 // const [file, setFile] = useState(null);
 
