@@ -36,6 +36,7 @@ function TransactionDetails() {
       return;
     }
     video.style.width = "100%";
+    console.log(video)
 
     // setCameraFacingMode(video);
   });
