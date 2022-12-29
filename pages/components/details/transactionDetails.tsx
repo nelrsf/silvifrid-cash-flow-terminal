@@ -55,7 +55,7 @@ function TransactionDetails() {
           {isCameraOpen ? (
             <Camera
               onTakePhoto={takePhoto}
-              idealFacingMode = {FACING_MODES.USER}
+              idealFacingMode = {FACING_MODES.ENVIRONMENT}
               // idealResolution={{width:miDiv.current.offsetWidth}}
               
             ></Camera>
