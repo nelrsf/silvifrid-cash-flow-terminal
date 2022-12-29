@@ -1,0 +1,52 @@
+.transactionContainer {
+    padding: 4%;
+}
+
+.transactionItem {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1rem;
+}
+
+.cardItem {
+    padding: 1rem 1rem;
+}
+
+
+.imgViewport{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imgViewport img{
+    width: 40%;
+}
+
+.cardInfo{}
+
+.productName {
+    /* font-size: 0.8em; */
+}
+
+.transactionDate {
+    /* font-size: 0.7em; */
+}
+
+.value {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+@media screen and (min-width: 570px){
+    .imgViewport img {
+        width: 100%;
+    }
+}

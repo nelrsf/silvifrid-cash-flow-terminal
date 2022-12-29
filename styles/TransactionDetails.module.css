@@ -1,0 +1,43 @@
+.mainContainer {
+    display: flex;
+    justify-content: center;
+    padding: 5%;
+}
+
+.title{
+    text-align: center;
+    margin: 0rem 1rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.updateImage{
+    border-color: #80808061!important;
+    padding: 0.5rem 1rem;
+    margin: 0 5%;
+    width: 90%;
+    max-width: 25rem;
+}
+
+.cardWrapper {
+    width: 35rem;
+}
+
+.updateImage:active{
+    background-color: #66646461!important;
+}
+
+.submit {
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.cardHeader {
+    display: flex;
+}
+
+.react-html5-camera-photo>video {
+    width: 100%;
+}
