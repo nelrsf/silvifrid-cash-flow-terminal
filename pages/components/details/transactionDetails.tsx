@@ -28,7 +28,6 @@ function TransactionDetails() {
         facingMode: { exact: 'environment' },
       },
     });
-    console.log("stream", stream)
     video.srcObject = stream;
   };
 
@@ -37,7 +36,6 @@ function TransactionDetails() {
     if (!video) {
       return;
     }
-
     video.style.width = "100%";
 
 
@@ -68,19 +66,13 @@ function TransactionDetails() {
           {isCameraOpen ? (
             <Camera
               onTakePhoto={takePhoto}
-              idealFacingMode={FACING_MODES.USER}
+              idealFacingMode={FACING_MODES.ENVIRONMENT}
               // idealResolution={{width:miDiv.current.offsetWidth}}
             ></Camera>
           ) : (
             <Card.Img src={transaction?.image} width="60rem"></Card.Img>
           )}
         </div>
-        {/* <Form.Control
-          type="file"
-          onChange={changeImage}
-          className={`${styles.updateImage} mt-2`}
-          accept="image/*"
-        ></Form.Control> */}
         <Button onClick={toggleCamera} className={`${styles.updateImage} mt-2`}>
           <FontAwesomeIcon icon={faCamera}></FontAwesomeIcon>
         </Button>
@@ -114,15 +106,9 @@ function TransactionDetails() {
   );
 }
 
-// const [file, setFile] = useState(null);
+
 
 const changeImage = (event: any) => {
-  // setFile(event.target.files[0]);
-  // console.log(event.target.files[0]);
-  //   const file = event.target.files[0];
-  //   const fileReader = new FileReader();
-  //   fileReader.onload = (e) => setFile(event.target.files[0]);
-  //   fileReader.readAsDataURL(file);
 };
 
 function changeProductName() {}
