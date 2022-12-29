@@ -5,7 +5,7 @@ import { Card, Form, Button } from "react-bootstrap";
 import { useRouter } from "next/router";
 import BackButton from "../buttons/back";
 import { useEffect, useState } from "react";
-import Camera from "react-html5-camera-photo";
+import Camera, { FACING_MODES } from "react-html5-camera-photo";
 import 'react-html5-camera-photo/build/css/index.css';
 import { useRef } from 'react'
 import transacrionData from "../../../transactionsData";
@@ -55,6 +55,7 @@ function TransactionDetails() {
           {isCameraOpen ? (
             <Camera
               onTakePhoto={takePhoto}
+              idealFacingMode = {FACING_MODES.ENVIRONMENT}
               // idealResolution={{width:miDiv.current.offsetWidth}}
               
             ></Camera>
