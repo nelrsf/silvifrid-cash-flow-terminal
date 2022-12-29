@@ -35,6 +35,7 @@ function TransactionDetails() {
     if (!video) {
       return;
     }
+    console.log(navigator)
     video.style.width = "100%";
     console.log(video)
 
@@ -65,7 +66,7 @@ function TransactionDetails() {
           {isCameraOpen ? (
             <Camera
               onTakePhoto={takePhoto}
-              idealFacingMode={FACING_MODES.ENVIRONMENT}
+              idealFacingMode={FACING_MODES.USER}
               // idealResolution={{width:miDiv.current.offsetWidth}}
             ></Camera>
           ) : (
