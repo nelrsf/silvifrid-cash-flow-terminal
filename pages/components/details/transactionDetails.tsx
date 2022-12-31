@@ -3,20 +3,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import { Card, Form, Button } from "react-bootstrap";
 import { useRouter } from "next/router";
-import BackButton from "../buttons/back";
-import { useEffect, useState } from "react";
+import BackHomeButton from "../buttons/backHome";
+import { useEffect, useState, useRef } from "react";
 import Camera, { FACING_MODES } from "react-html5-camera-photo";
 import "react-html5-camera-photo/build/css/index.css";
-import { useRef } from "react";
 import transacrionData from "../../../transactionsData";
+import BackButton from "../buttons/back";
+import QuantityInput from "../QuantityInput/quantityInput";
 
-function TransactionDetails() {
-  console.log("version 2")
+function TransactionDetails(props: any) {
   const [isCameraOpen, setIsCameraOpen] = useState(false);
   const router = useRouter();
-  const { id, mode } = router.query;
-  let transaction = getTransactionById(parseInt(id as string));
-  const miDiv = useRef(null);
+  const { id } = router.query;
+  let transaction = getTransaction(parseInt(id as string));
+  const imageDiv = useRef(null);
+  const totalInput = useRef(null);
+  const total = useRef(0);
+  const quantity = useRef(0);
 
   function toggleCamera() {
     setIsCameraOpen(!isCameraOpen);
@@ -25,7 +28,7 @@ function TransactionDetails() {
   const setCameraFacingMode = async (video: any) => {
     const stream = await navigator.mediaDevices.getUserMedia({
       video: {
-        facingMode: { exact: 'environment' },
+        facingMode: { exact: "environment" },
       },
     });
     video.srcObject = stream;
@@ -37,65 +40,106 @@ function TransactionDetails() {
       return;
     }
     video.style.width = "100%";
-
-
     setCameraFacingMode(video);
   });
+
   function takePhoto(uri: any) {
     if (!transaction) {
       return;
     }
     transaction.image = uri as string;
     setIsCameraOpen(false);
-    console.log(uri);
   }
 
-  useEffect(() => {
-    console.log(document.querySelector("Camera"));
-    // Código para utilizar el ancho del div aquí
-  }, [miDiv]);
+  const changeImage = (event: any) => {};
+
+  function changeProductName(event: any) {
+    if (!transaction) {
+      return;
+    }
+    transaction.productName = event.target.value;
+  }
+
+  function changeDate(event: any) {
+    if (!transaction) {
+      return;
+    }
+    transaction.date = event.target.value;
+  }
+
+  function changePrice(event: any) {
+    if (!transaction) {
+      return;
+    }
+    transaction.price = parseInt(event.target.value);
+    updateTotal();
+  }
+
+  function updateQuantity(event: any) {
+    quantity.current = event;
+    updateTotal();
+  }
+
+  function updateTotal() {
+    let price = parseInt(transaction?.price || "0");
+    total.current = price * quantity.current;
+    if (totalInput.current) {
+      totalInput.current.value = total.current;
+    }
+  }
 
   return (
     <div className={styles.mainContainer}>
       <Card className={styles.cardWrapper}>
         <Card.Header className={styles.cardHeader}>
-          <BackButton />
-          <Card.Title className={styles.title}>Titulo {id}</Card.Title>
+          <BackButton returnUrl="/cash-flow/incomes" />
+          <Card.Title className={styles.title}>Titulo</Card.Title>
+          <BackHomeButton />
         </Card.Header>
-        <div ref={miDiv} className="imgContainer">
+        <div ref={imageDiv} className="imgContainer">
           {isCameraOpen ? (
             <Camera
               onTakePhoto={takePhoto}
               idealFacingMode={FACING_MODES.ENVIRONMENT}
-              // idealResolution={{width:miDiv.current.offsetWidth}}
             ></Camera>
           ) : (
-            <Card.Img src={transaction?.image} width="60rem"></Card.Img>
+            <Card.Img
+              src={transaction?.image}
+              width="60rem"
+            ></Card.Img>
           )}
         </div>
         <Button onClick={toggleCamera} className={`${styles.updateImage} mt-2`}>
           <FontAwesomeIcon icon={faCamera}></FontAwesomeIcon>
         </Button>
         <Card.Body>
-          <Form.Label>Producto</Form.Label>
+          <Form.Label className="mt-3">Producto</Form.Label>
           <Form.Control
             type="text"
-            value={transaction?.productName}
+            defaultValue={transaction?.productName}
             onChange={changeProductName}
           ></Form.Control>
-          <Form.Label>Precio</Form.Label>
+          <Form.Label className="mt-3">Precio</Form.Label>
           <Form.Control
             type="number"
-            value={transaction?.price}
+            defaultValue={transaction?.price.toLocaleString()}
             onChange={changePrice}
           ></Form.Control>
-          <Form.Label>Fecha</Form.Label>
+          <QuantityInput updateMessage={updateQuantity} />
+          <Form.Label className="mt-3">Total</Form.Label>
+          <Form.Control
+            ref={totalInput}
+            type="number"
+            disabled={true}
+            defaultValue={total.current}
+          ></Form.Control>
+          <Form.Label className="mt-3">Fecha</Form.Label>
           <Form.Control
             type="date"
-            value={transaction?.date}
+            defaultValue={transaction?.date}
             onChange={changeDate}
           ></Form.Control>
-          <Form.Label>Observacion</Form.Label>
+          <Form.Label className="mt-3">Observacion</Form.Label>
           <Form.Control as="textarea" rows={3}></Form.Control>
           <Button className={styles.submit} variant="outline-success">
             Guardar
@@ -106,14 +150,26 @@ function TransactionDetails() {
   );
 }
 
+function getTransaction(id: number) {
+  if(id){
+    return getTransactionById(id);
+  } else {
+    return getNewTransaction();
+  }
+}
 
-
-const changeImage = (event: any) => {
-};
-
-function changeProductName() {}
-function changeDate() {}
-function changePrice() {}
+function getNewTransaction(){
+  const currentDate = new Date();
+  const dateString = new Intl.DateTimeFormat('en-US').format(currentDate);
+  const arrayDate = dateString.split("/");
+  const dateNewFormat = [arrayDate[2],arrayDate[0],arrayDate[1]].join("-");
+  return {
+    productName: "Nuevo producto",
+    date:  dateNewFormat,
+    image: "https://cdn-icons-png.flaticon.com/512/2878/2878547.png",
+    price: 0
+  }
+}
 
 function getTransactionById(id: number) {
   return transacrionData.find((t) => {

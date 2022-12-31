@@ -1,14 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome } from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "react-bootstrap";
 import Link from "next/link";
 
 
-function BackButton() {
+function BackButton(props: any) {
   return (
-    <Link href="/">
+    <Link href={props.returnUrl || "/"}>
       <Button variant="outline-secondary">
-        <FontAwesomeIcon icon={faHome}></FontAwesomeIcon>
+        <FontAwesomeIcon icon={faChevronLeft}></FontAwesomeIcon>
       </Button>
     </Link>
   );

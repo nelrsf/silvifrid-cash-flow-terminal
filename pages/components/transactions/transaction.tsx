@@ -4,7 +4,6 @@ import "bootstrap/dist/css/bootstrap.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Button from "react-bootstrap/Button";
-import Image from "next/image";
 import Link from "next/link";
 
 function Transaction(props: any) {
@@ -34,6 +33,7 @@ function Transaction(props: any) {
               query: {
                 id: props.transactionData?.id,
                 mode: "edit",
+                returnUrl: props.returnUrl || "/"
               },
             }}
           >
