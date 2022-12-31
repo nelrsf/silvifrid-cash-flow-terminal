@@ -4,9 +4,9 @@ import React, { useRef } from "react";
 import { Button, Form } from "react-bootstrap";
 import styles from "../../../styles/quantityInput/QuantityInput.module.css";
 
-function QuantityInput(props: any) {
+function QuantityInput(this: any, props: any) {
   const quantity: any = useRef(1);
-  let input = useRef(null);
+  let input = useRef<HTMLInputElement>();
 
   function changeQuntity(event: any) {
     quantity.current = parseInt(event.target.value);
@@ -37,7 +37,7 @@ function QuantityInput(props: any) {
           <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
         </Button>
         <Form.Control
-          ref={input}
+          ref={this?.input}
           className={styles.quantityField}
           type="number"
           defaultValue={quantity.current}

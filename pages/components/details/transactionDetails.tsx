@@ -4,7 +4,7 @@ import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import { Card, Form, Button } from "react-bootstrap";
 import { useRouter } from "next/router";
 import BackHomeButton from "../buttons/backHome";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, ElementRef } from "react";
 import Camera, { FACING_MODES } from "react-html5-camera-photo";
 import "react-html5-camera-photo/build/css/index.css";
 import transacrionData from "../../../transactionsData";
@@ -17,7 +17,7 @@ function TransactionDetails(props: any) {
   const { id } = router.query;
   let transaction = getTransaction(parseInt(id as string));
   const imageDiv = useRef(null);
-  const totalInput = useRef(null);
+  const totalInput = useRef<HTMLInputElement>(null);
   const total = useRef(0);
   const quantity = useRef(0);
 
@@ -81,10 +81,10 @@ function TransactionDetails(props: any) {
   }
 
   function updateTotal() {
-    let price = parseInt(transaction?.price || "0");
+    let price = transaction?.price || 0;
     total.current = price * quantity.current;
     if (totalInput.current) {
-      totalInput.current.value = total.current;
+      totalInput.current.value = total.current.toString();
     }
   }
 
